@@ -1,11 +1,14 @@
 import express from 'express'
 
 const app = express()
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 4000
+
+app.use(express.json())
+
 app.get('/', (req,res)=>{
-    res.send('Hello World')
+    res.send('Sup World')
 })
 
-app.listen(5000, ()=>{
+app.listen(port, ()=>{
     `App listening on port ${port}`
 })
