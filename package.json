@@ -1,15 +1,19 @@
 {
   "name": "mernapp",
+  "type": "module",
   "version": "1.0.0",
   "description": "mern app",
   "main": "server.js",
   "scripts": {
-    "start": "node backend/server",
-    "server":"nodemon backend/server"
+    "start": "node backend/server.js",
+    "server": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "jerry dumas",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^9.0.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
