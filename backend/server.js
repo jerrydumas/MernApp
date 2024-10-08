@@ -2,6 +2,16 @@ import express from 'express'
 import cors from 'cors'
 import clientPromise from './dbconnect.js'
 
+export async function main(){
+  const client = await clientPromise
+  // const isConnected = await client.isConnected()
+  const db = client.db('AmazingMernApp')
+  const collection = db.collection('animals')
+}
+main()
+.then(console.log)
+.catch(console.error)
+.finally(()=>client.close())
 
 const app = express()
 const port = process.env.PORT || 4000
@@ -21,14 +31,3 @@ app.listen(port, ()=>{
     `App listening on port ${port}`
 })
 
-
-export async function main(){
-  const client = await clientPromise
-  // const isConnected = await client.isConnected()
-  const db = client.db('AmazingMernApp')
-  const collection = db.collection('animals')
-}
-main()
-.then(console.log)
-.catch(console.error)
-.finally(()=>client.close())
