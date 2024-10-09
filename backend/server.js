@@ -1,17 +1,20 @@
 import express from 'express'
 import cors from 'cors'
-import clientPromise from './dbconnect.js'
+import { MongoClient } from 'mongodb'
 
-export async function main(){
-  const client = await clientPromise
-  // const isConnected = await client.isConnected()
-  const db = client.db('AmazingMernApp')
-  const collection = db.collection('animals')
+const URI = process.env.DBCONNECT
+const client = new MongoClient(URI);
+try {
+  // Connect the client to the server
+  await client.connect();
+  // Send a ping to confirm a successful connection
+  await client.db("AmazingMernApp").command({ ping: 1 });
+  console.log("Pinged your deployment. You successfully connected to MongoDB!");
+} catch (err) {
+  console.error(err);
 }
-main()
-.then(console.log)
-.catch(console.error)
-.finally(()=>client.close())
+
+
 
 const app = express()
 const port = process.env.PORT || 4000
