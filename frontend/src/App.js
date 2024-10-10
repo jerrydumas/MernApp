@@ -3,10 +3,11 @@ import axios from 'axios'
 import './App.css';
 
 function App() {
+  const host = process.env.HOST
   const [allAnimals,setAllAnimals] = useState([])
   
   useEffect(()=>{
-    const response = axios.get('https://mernapp-dynq--4000--134daa3c.local-corp.webcontainer.io/animals')
+    const response = axios.get({host}/'animals')
     .then(
       console.log()
     )
