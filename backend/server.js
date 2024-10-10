@@ -1,12 +1,10 @@
 import express from 'express'
 import cors from 'cors'
-import { MongoClient } from 'mongodb'
+import './dbconnect.js'
 
 const app = express()
 const port = process.env.PORT || 4000
-const uri = process.env.DBCONNECT
-let db = "AmazingMernApp"
-let collection = "animals"
+
 
 app.use(cors())
 app.use(express.json())
@@ -17,6 +15,7 @@ app.get('/', (req,res)=>{
 app.get('/animals', async (req,res)=>{
   try {
     const findResult = await collection.find({}).toArray();
+    res.json(findResult)
 console.log('Found documents =>', findResult);
   } catch (error) {
     console.log(error)
@@ -25,10 +24,3 @@ console.log('Found documents =>', findResult);
 app.listen(port, ()=>{
     `App listening on port ${port}`
 })
-async function start() {
-  const client = new MongoClient(uri)
-  await client.connect()
-  console.log('connected to MongoDB')
-  db = client.db()
-}
-start()
